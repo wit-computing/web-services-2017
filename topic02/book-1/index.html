@@ -1,0 +1,334 @@
+ <!DOCTYPE html>
+ <html>
+   <head>
+
+     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2/semantic.min.css" type="text/css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/solarized_light.min.css" rel="stylesheet" />
+
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2/semantic.min.js"></script>
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/languages/java.min.js"></script>
+     <script>hljs.initHighlightingOnLoad();</script>
+
+      <style>
+        
+
+body 
+{
+  font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
+}
+
+figcaption
+{
+  margin-bottom: 20px;
+}
+
+.vertical-align
+{
+  display: flex;
+  align-items: center;
+}
+
+.credits
+{
+  min-height:20px;
+}
+
+
+    </style>
+
+  </head>
+
+  <body>
+
+    
+
+
+
+  <div class="ui container">
+    
+
+<style>
+  
+
+code
+{
+  font-family: "Monaco";
+  font-size: 110%;
+}
+
+img
+{
+  padding:1px;
+  border:1px solid black;
+}
+
+h1
+{
+  font-style:italic;
+  font-size:130%;
+  border-bottom: thin solid black;
+}
+h2
+{
+  font-size:110%;
+  border-bottom: thin solid black;
+}
+h3
+{
+  font-size:100%;
+  border-bottom: thin solid black;
+}
+
+
+
+</style>
+
+<div class="ui fixed top pointing inverted menu labmenu">
+  <header class="header item">
+    <a href="../index.html">
+      <i class="sitemap icon"></i>
+      Node.js
+    </a>
+  </header>
+  <div class="right tab-menu menu">
+    
+      <a class="item" data-tab="Lab-node-01">
+        Lab-node-01
+      </a>
+    
+      <a class="item" data-tab="01">
+        01
+      </a>
+    
+      <a class="item" data-tab="02">
+        02
+      </a>
+    
+      <a class="item" data-tab="03">
+        03
+      </a>
+    
+      <a class="item" data-tab="04">
+        04
+      </a>
+    
+    </div>
+</div>
+
+<br><br>
+
+  
+  <div  class="ui tab segment lab" data-tab="Lab-node-01">
+    <h1>Node Introduction</h1>
+<p>You will create your first simple node web service...</p>
+
+  </div>
+ 
+  <div  class="ui tab segment lab" data-tab="01">
+    <h1>Node.js</h1>
+<p>If you do not have Node.js installed in you machine, please go to <a href="http://nodejs.org/">nodejs.org</a> and download/install node for your platform. To check if node is working, open a command line/terminal window on your machine and enter <code>node -v</code>. IT should respond as follows:</p>
+<pre><code>&gt; node -v
+v0.13.0-pre</code></pre>
+<p>The work for this lab has been tested with node version 0.13.0. </p>
+
+  </div>
+ 
+  <div  class="ui tab segment lab" data-tab="02">
+    <h1>The &quot;Hello World&quot; HTTP Server</h1>
+<p>We will be using node as a web application platform. In this step we&#39;ll set up a simple HTTP server that responds to every request with the plain text message &quot;Hello World&quot;. Create a new folder called <strong>nodeservers</strong> and create a new file called &quot;simple-server.js&quot;  with the following contents:</p>
+<pre><code class="lang-javascript">// Load the http module to create an http server.
+var http = require(&#39;http&#39;);
+
+// Configure our HTTP server to respond with Hello World to all requests.
+var server = http.createServer(function (request, response) {
+  response.writeHead(200, {&quot;Content-Type&quot;: &quot;text/plain&quot;});
+  response.end(&quot;Hello World\n&quot;);
+});
+
+// Listen on port 8000, IP defaults to 127.0.0.1
+server.listen(8000);
+
+// Put a friendly message on the terminal
+console.log(&quot;Server running at http://127.0.0.1:8000/&quot;);</code></pre>
+<p>In the first line, we include the http core module and assign it to a variable called <code>http</code>. Next we assign a variable called <code>server</code> from the <code>http.createServer(...)</code> function. The argument passed into this call is the function that is called whenever an http request comes in.
+Finally we call <code>server.listen(8000)</code> to tell node.js the port on which we want our server to run. 
+To run the server open a terminal/command window in the lab6 folder and enter:</p>
+<pre><code>node simple-server.js</code></pre>
+<p>Now open your browser to &#39;<a href="http://localhost:8000">http://localhost:8000</a>&#39;. You should see the following:</p>
+<blockquote>
+<p><img src="./img/01.png" alt=""></p>
+</blockquote>
+<p>The connection function is invoked with a <strong>req</strong> and <strong>res</strong> object. The <strong>req</strong> object represents the HTTP request and is a readable stream that emits &#39;data&#39; events for each incoming piece of data (like a form submission or file upload). The <strong><em>res</em></strong> object represents the HTTP response and is used to send data back to the client. In our case we are simply sending a 200 OK header, as well as the body &#39;Hello World&#39;.</p>
+<h3>Nodes Module system</h3>
+<p>Node.js provides a simple module system that lets you structure your program into different files. In our <em>simple-server.js</em> example, we use the core http module to create our HTTP service. You can also write your own modules. When creating a module, this can be interpreted as moving all related functions into a file. For example, update your <em>simple-server.js</em> file as follows:</p>
+<pre><code class="lang-javascript">// Load the http module to create an http server.
+var http = require(&#39;http&#39;);
+// Load the greeting module to provide the greeting.
+var greeting = require(&#39;./greeting&#39;);
+
+// Configure our HTTP server to respond with Hello World to all requests.
+var server = http.createServer(function (request, response) {
+  response.writeHead(200, {&quot;Content-Type&quot;: &quot;text/plain&quot;});
+  response.end(greeting.english());
+});
+
+// Listen on port 8000, IP defaults to 127.0.0.1
+server.listen(8000);
+
+// Put a friendly message on the terminal
+console.log(&quot;Server running at http://127.0.0.1:8001/&quot;);</code></pre>
+<p>Now create a new file called &#39;greeting.js&#39; in the same folder with the following content:</p>
+<pre><code class="lang-javascript">//Greeting in English
+exports.english = function(){
+    return &quot;Hello World!&quot;;
+}
+//Greeting in French
+exports.french = function(){
+    return &quot;Bonjour tout le Monde!&quot;;
+}</code></pre>
+<p>Now test your file again using a browser. The <code>exports</code> expose the functions to other modules that require them. To access the exported functions in out simple server, we can load the greeting module using the require function in <code>var greeting = require(&#39;./greeting&#39;);</code>. </p>
+<p>As you will see, the core modules give you very few modules. Most of the real power in Node.js is contained in the third party modules available through the Node Package Management system(NPM).</p>
+
+  </div>
+ 
+  <div  class="ui tab segment lab" data-tab="03">
+    <h1>Node Package Manager</h1>
+<p>Node Package Manager(NPM), is the program you use to install third party Node modules. It comes with more recent versions of Node so no need to install it. </p>
+<h3>Installing Modules</h3>
+<h4>Local Modules</h4>
+<p>The most common usage of npm is to install packages that have been published to the npm registry. An example is the <a href="https://www.npmjs.com/package/express">express</a> package. To install request, open a terminal/command promt and change directory to the lab6 folder. Enter the following command:</p>
+<pre><code>npm install express</code></pre>
+<p>This will install the package to the <code>node_modules</code> folder in the project folder. All locally installed modules will be installed here. 
+To use the package, add another &quot;require&quot; to the server code:</p>
+<pre><code>require(&#39;express&#39;)</code></pre>
+<p>We will be using the Express package later on to help us create web apis.</p>
+<h4>Global modules.</h4>
+<p>You already used NPM in a previous lab to install http-server package as follows <code>npm install http-server -g</code> to serve up HTML pages. The &#39;-g&#39; indicates that this package will be installed <em>globally</em> - i.e. acessible anywhere. Global instalations are typically used  for  command line utilities. </p>
+<h3>package.json</h3>
+<p>If you&#39;re developing a Node program or library for deployment, it&#39;s a good practice to include a package.json file. This file is a manifest of the Node project and is located at your project root. It contains various information specific to your project. To create a package.json file, run the following in the <em>lab6</em> folder:</p>
+<pre><code>npm init</code></pre>
+<p>You&#39;ll now be asked a few questions about your node app. Answer as follows:
+- name: (node lab 1) 
+- version: (1.0.0) ;
+- description: simple http server;
+- entry point: (greeting.js) simple-server.js;
+- keywords: http node
+- author: <em>your name</em>
+- license: (ISC) </p>
+<p>You can leave the others blank.</p>
+
+  </div>
+ 
+  <div  class="ui tab segment lab" data-tab="04">
+    <h1>Express Applications</h1>
+<p>We&#39;ll now add some static content to our web server.  Express is a richer web app package and provides a nice high level approach to serving up static content. It&#39;s based around the idea of creating an Express &quot;app&quot; that you can easily configure. One of the configuration options allows you to specify the location of your publicly available content such as static HTML, CSS, client-side Javascript files etc.</p>
+<ul>
+<li>In your <em>nodeservers</em> folder, create the following folder structure:<pre><code>+public 
+  |-javascript
+  |-stylesheets</code></pre>
+</li>
+<li>Add the html from <a href="https://drive.google.com/file/d/0BxtnCYpIWp3Da215RGhIT0JyYjQ/view?usp=sharing">here</a>. Make sure the files are in the public folder.</li>
+<li>In nodeservers, create a new file called <em>server.js</em>  that contains the following javascript:</li>
+</ul>
+<pre><code class="lang-javascript">var express = require(&#39;express&#39;);
+//create an express app
+var app = express();
+
+// Configure the app to serve up content from public directory
+app.use(express.static(__dirname + &#39;/public&#39;));
+
+// Listen on port 8000, IP defaults to 127.0.0.1
+app.listen(8000)
+
+// Put a friendly message on the terminal
+console.log(&quot;Server running at http://127.0.0.1:8000/&quot;);</code></pre>
+<ul>
+<li>Run the express server by entering <code>node server.js</code> at the terminal/command line as before. Now test the application as before in a browser. It should work exactly as before. </li>
+</ul>
+<h4>Simple Routing</h4>
+<p>Express gives us an easy way of mapping specific URL paths to Javascript functions. You will now replicate the functionality from the &quot;Hello World&quot; section so that a HTTP GET request for the URL path  &#39;/greeting/&#39; will respond with &quot;Hello World&quot;. Modify the server.js by adding an <code>app.get([route],[callback function])</code>.
+- Modify the server.js script to include a route for /greeting that responds with &quot;hello world&quot;.</p>
+<pre><code class="lang-javascript">var express = require(&#39;express&#39;);
+//Add greeting module
+var greeting = require(&#39;./greeting&#39;);
+//create an express app
+var app = express();
+
+// Configure the app to serve up content from public directory
+app.use(express.static(__dirname + &#39;/public&#39;));
+
+//add route for /greeting 
+app.get(&#39;/greeting&#39;,function (request, response) {
+  response.writeHead(200, {&quot;Content-Type&quot;: &quot;text/plain&quot;});
+  response.end(greeting.english());
+});
+
+// Listen on port 8000, IP defaults to 127.0.0.1
+app.listen(8000)
+
+// Put a friendly message on the terminal
+console.log(&quot;Server running at http://127.0.0.1:8000/&quot;);</code></pre>
+
+  </div>
+ 
+
+
+<script>
+$('.ui.menu .item')
+  .tab({
+    history: true,
+    historyType: 'hash'
+  })
+;
+</script>
+
+   </div>
+
+   
+  <br><br>
+  <div class="ui bottom fixed borderless menu">
+    <div class="ui small item">
+    <p id="footertext">
+    Prepared by  Frank Walsh (fxwalsh@wit.ie). Except where otherwise noted, this content is licensed under a
+     <a  href="http://creativecommons.org/licenses/by-nc/4.0/" title="External link to http://creativecommons.org/licenses/by-nc/4.0/"
+       target="_blank">Creative Commons Attribution-NonCommercial 4.0 License
+     </a>
+     </p>
+    </div>
+  </div>
+
+    <script>
+      
+$(document).ready(function()
+{
+  $("img").addClass ("ui image");
+  $('.ui.embed').embed();
+
+  var images = $(".lab img");
+  jQuery.each(images, function(i)  {
+    if((images[i].alt).length > 0)
+    {
+      var div_img = $(document.createElement("div")).addClass("ui segment");
+      $(images[i]).wrap(div_img);
+      var div_label = $(document.createElement("div")).addClass("ui ribbon teal top attached label");
+      div_label.append(images[i].alt);
+      $(div_label).insertBefore(images[i]);
+    }
+  });
+
+
+})
+
+
+    </script>
+
+  </body>
+ </html>
