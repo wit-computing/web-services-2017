@@ -1,0 +1,361 @@
+ <!DOCTYPE html>
+ <html>
+   <head>
+
+     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2/semantic.min.css" type="text/css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/solarized_light.min.css" rel="stylesheet" />
+
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2/semantic.min.js"></script>
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/languages/java.min.js"></script>
+     <script>hljs.initHighlightingOnLoad();</script>
+
+      <style>
+        
+
+body 
+{
+  font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
+}
+
+figcaption
+{
+  margin-bottom: 20px;
+}
+
+.vertical-align
+{
+  display: flex;
+  align-items: center;
+}
+
+.credits
+{
+  min-height:20px;
+}
+
+
+    </style>
+
+  </head>
+
+  <body>
+
+    
+
+
+
+  <div class="ui container">
+    
+
+<style>
+  
+
+code
+{
+  font-family: "Monaco";
+  font-size: 110%;
+}
+
+img
+{
+  padding:1px;
+  border:1px solid black;
+}
+
+h1
+{
+  font-style:italic;
+  font-size:130%;
+  border-bottom: thin solid black;
+}
+h2
+{
+  font-size:110%;
+  border-bottom: thin solid black;
+}
+h3
+{
+  font-size:100%;
+  border-bottom: thin solid black;
+}
+
+
+
+</style>
+
+<div class="ui fixed top pointing inverted menu labmenu">
+  <header class="header item">
+    <a href="../index.html">
+      <i class="sitemap icon"></i>
+      Node.js
+    </a>
+  </header>
+  <div class="right tab-menu menu">
+    
+      <a class="item" data-tab="Lab-node-02">
+        Lab-node-02
+      </a>
+    
+      <a class="item" data-tab="01">
+        01
+      </a>
+    
+      <a class="item" data-tab="02">
+        02
+      </a>
+    
+      <a class="item" data-tab="03">
+        03
+      </a>
+    
+      <a class="item" data-tab="04">
+        04
+      </a>
+    
+    </div>
+</div>
+
+<br><br>
+
+  
+  <div  class="ui tab segment lab" data-tab="Lab-node-02">
+    <h2>Lab 7: Node and Express 2</h2>
+<p>In this lab you will add more functionality to the server side scripts. This lab will introduce you to the following:
+- define a web API for your service
+- separate routing out into a routing script
+- do more advanced routing based on the HTTP verb
+- test your solution with a suitable Rest Client</p>
+
+  </div>
+ 
+  <div  class="ui tab segment lab" data-tab="01">
+    <h1>Set up the Express Application</h1>
+<p>We will use the &#39;routing&#39; technique covered in the last lab to map the above HTTP verb and paths</p>
+<ul>
+<li>Create a new project folder called <em>lab7</em> and do the following<ul>
+<li>Just like you did in lab 6, use Node Package Manager (NPM) to create a <em>package.json</em> file in the lab7 folder using <code>npm init</code> command.  </li>
+</ul>
+</li>
+<li>Install Express and save the dependency to the package.json be running the following in the lab7 folder:
+<code>npm install express --save</code>. (the <code>--save</code> adds Express dependency to your package.json)</li>
+<li>This time we&#39;ll also be parsing contact JSON in the HTML. We need the <em>body-parser</em> package for that. Install as follows: <code>npm install body-parser --save</code></li>
+<li>In the <em>lab7</em> folder, create a new script called <strong>app.js</strong> containing the following code:</li>
+</ul>
+<pre><code class="lang-javascript">var express = require(&#39;express&#39;);
+var bodyParser = require(&#39;body-parser&#39;);
+//create an express app
+var app = express();
+
+//configure the express app to parse JSON-formatted body
+app.use(bodyParser.json());
+
+//add route for the root
+app.get(&#39;/&#39;,function (request, response) {
+  response.writeHead(200, {&quot;Content-Type&quot;: &quot;text/plain&quot;});
+  response.end(&quot;We&#39;re up and running!!!&quot;);
+});
+// Listen on port 8000, IP defaults to 127.0.0.1
+app.listen(8000)
+// Put a friendly message on the terminal
+console.log(&quot;Server running at http://127.0.0.1:8000/&quot;);</code></pre>
+<ul>
+<li>As in the last lab, start the service by running <code>node app.js</code> and then check if the Express app is listening on port 8000. This time, however, we will use a &quot;Rest client&quot; to manually test the service. If you are using the Chrome browser, you can use the &#39;Advanced Rest Client&#39; which is available as a Chrome app. See <a href="https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo">here</a> for instructions on how to install the app.<br>Once installed, perform a HTTP GET request on localhost:8000 as shown below. You should get a &quot;200 OK&quot; result if everything is OK.
+<img src="./img/01.png" alt=""></li>
+</ul>
+
+  </div>
+ 
+  <div  class="ui tab segment lab" data-tab="02">
+    <h1>Defining the contacts web API</h1>
+<p>In the last lab we created one simple route:</p>
+<pre><code class="lang-javascript">//add route for /greeting 
+app.get(&#39;/greeting&#39;,function (request, response) {
+  ...
+});</code></pre>
+<p>In this lab, the following list of actions are required for the Contacts API. </p>
+<ul>
+<li>view all contacts</li>
+<li>add a new contact</li>
+<li>delete a contact</li>
+<li>update a contact</li>
+</ul>
+<p>We will now map these action to a set of HTTP operations on resources. </p>
+<table>
+<thead>
+<tr>
+<th>HTTP Verb &amp; Path</th>
+<th>Operation Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET: /api/contacts</td>
+<td>return a list of contacts</td>
+</tr>
+<tr>
+<td>POST: /api/contacts</td>
+<td>add a new contact</td>
+</tr>
+<tr>
+<td>PUT: /api/contacts/:id</td>
+<td>update a contact</td>
+</tr>
+<tr>
+<td>DELETE: /api/contacts/:id</td>
+<td>delete a contact</td>
+</tr>
+</tbody>
+</table>
+<p>We will now use the same approach but use the &#39;require&#39; functionality to separate out the routing logic from the main app script.</p>
+
+  </div>
+ 
+  <div  class="ui tab segment lab" data-tab="03">
+    <h1>Implementing Get and Post</h1>
+<ul>
+<li>In <strong>app.js</strong>, update the code to require the routing script and the above routes.  <pre><code class="lang-javascript">//create routing object
+var contact = require(&#39;./api/contacts/index&#39;);
+//Add routes for contacts api
+app.get(&#39;/api/contacts&#39;,contact.index);
+app.post(&#39;/api/contacts&#39;,contact.create);</code></pre>
+</li>
+<li>Each contact&#39;s JSON representation will look like the following: <pre><code class="lang-json">{id: &#39;hwX6aOr7&#39;, name: &quot;Ellen Bliggs&quot;, address: &quot;2 River Road&quot;, phone_number: &quot;051-123457&quot;}</code></pre>
+We will need to generate a unique id each time a new contact is added. To do this, install the <strong>ShortId</strong> Module by running the following in the lab7 folder:  <pre><code class="lang-javascript">npm install shortid --save</code></pre>
+</li>
+<li>In the lab7 folder create the following folder structure.<pre><code>- api  
+   |- contacts</code></pre>
+To mimic a real database, we&#39;ll use a script that exports a hard coded contacts data as a JSON array. Create a new file called datastore.js in the <em>contacts</em> folder and add the following:<pre><code class="lang-javascript">exports.contacts = [ 
+ {id: &#39;a4vhAoFG&#39;, name: &quot;Joe Bloggs&quot;, address: &quot;1 Bank Lane&quot;, phone_number: &quot;051-123456 &quot;},
+ {id: &#39;hwX6aOr7&#39;, name: &quot;Ellen Bliggs&quot;, address: &quot;2 River Road&quot;, phone_number: &quot;051-123457&quot;}
+]</code></pre>
+</li>
+<li><p>Create a new script called <em>index.js</em> in the contacts folder. Add the following code to the script.</p>
+<pre><code class="lang-javascript">var datastore = require(&#39;./datastore&#39;);
+var shortId = require(&#39;shortid&#39;);
+// Get list of contacts
+exports.index = function(req, res) {
+  return res.json(200, datastore.contacts);
+} ;
+// Creates a new contact in datastore.
+exports.create = function(req, res) {
+  var contact = {
+     id: shortId.generate(),
+     name: req.body.name,
+     address: req.body.address,
+     phone_number: req.body.phone_number 
+  };
+  datastore.contacts.push(contact)
+  return res.json(201, contact);
+};</code></pre>
+<p>In the above code, we require the datastore script that exports the JSON array of contacts. The <code>index</code> function just returns all the contacts(i.e. the array). The <code>create</code> function creates a new new contact from the JSON contained in the HTTP body. Run the app again and, using your Rest client, test that it returns the contacts for a HTTP GET on localhost:8000/api/contact:
+<img src="./img/02.png" alt=""></p>
+</li>
+<li><p>Now test that you can add a contact to the contact list. Using your Rest client, do a HTTP POST on localhost:8000/api/contact, set the &quot;content-type&quot; to &quot;application/json&quot; and add the following into the payload:</p>
+<pre><code class="lang-json">{&quot;name&quot;:&quot;Bob Hope&quot;,&quot;address&quot;:&quot;123 Bob Lane&quot;,&quot;phone_number&quot;:&quot;051-3423456 &quot;}</code></pre>
+<p>See the screenshot below for guidance...
+<img src="./img/03.png" alt=""></p>
+</li>
+</ul>
+
+  </div>
+ 
+  <div  class="ui tab segment lab" data-tab="04">
+    <h1>Implementing Put and Delete</h1>
+<p>We now want to add routes for updating and deleting contacts from our contact list.
+* 
+Add the following two routes to your app script</p>
+<pre><code class="lang-javascript">app.put(&#39;/api/contacts/:id&#39;,contact.update);
+app.delete(&#39;/api/contacts/:id&#39;,contact.delete);</code></pre>
+<p>The <code>:id</code> part of the path allows that portion of the path (i.e. the customer id) to be accessed in the router function as a request parameter. This is shown in the following update and delete functions...
+* 
+Add the corresponding functions in the index.js:</p>
+<pre><code class="lang-javascript">// Update an existing contact in datastore.
+exports.update = function(req, res) {
+    var index = datastore.contacts.map(function(x) {return x.id; }).indexOf(req.params.id);
+    if (index != -1) {
+       var contact = datastore.contacts[index]
+       contact.name =  req.body.name
+       contact.address = req.body.address
+       contact.phone_number = req.body.phone_number
+       return res.send(200, contact) 
+    } else {
+        return res.send(404)
+    }
+};
+// delete an existing contact in datastore.
+exports.delete = function(req, res) {
+    var index = datastore.contacts.map(function(x) {return x.id; }).indexOf(req.params.id);
+    if (index != -1) {
+       var contact = datastore.contacts.splice(index,1);
+       return res.send(200, contact) 
+    } else {
+        return res.send(404)
+    }
+};</code></pre>
+<p>Notice in these functions you are just manipulating an array. Using the contact id, we find the array index of the contact in order to update/delete.  The id of the contact to update/delete is accessed from the request object using the req.params.id property. This is then used to find the array index of the element using the map function of the contacts array in first line of the function: <code>var index = datastore.contacts.map( ... )</code>
+* 
+Now test the update and delete using your Rest client. For the update, you will need to provide a document to update the existing resource (i.e. has same contact id of an exising contact).</p>
+
+  </div>
+ 
+
+
+<script>
+$('.ui.menu .item')
+  .tab({
+    history: true,
+    historyType: 'hash'
+  })
+;
+</script>
+
+   </div>
+
+   
+  <br><br>
+  <div class="ui bottom fixed borderless menu">
+    <div class="ui small item">
+    <p id="footertext">
+    Prepared by  Frank Walsh (fxwalsh@wit.ie). Except where otherwise noted, this content is licensed under a
+     <a  href="http://creativecommons.org/licenses/by-nc/4.0/" title="External link to http://creativecommons.org/licenses/by-nc/4.0/"
+       target="_blank">Creative Commons Attribution-NonCommercial 4.0 License
+     </a>
+     </p>
+    </div>
+  </div>
+
+    <script>
+      
+$(document).ready(function()
+{
+  $("img").addClass ("ui image");
+  $('.ui.embed').embed();
+
+  var images = $(".lab img");
+  jQuery.each(images, function(i)  {
+    if((images[i].alt).length > 0)
+    {
+      var div_img = $(document.createElement("div")).addClass("ui segment");
+      $(images[i]).wrap(div_img);
+      var div_label = $(document.createElement("div")).addClass("ui ribbon teal top attached label");
+      div_label.append(images[i].alt);
+      $(div_label).insertBefore(images[i]);
+    }
+  });
+
+
+})
+
+
+    </script>
+
+  </body>
+ </html>
