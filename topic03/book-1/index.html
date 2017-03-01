@@ -2,23 +2,27 @@
  <html>
    <head>
 
-     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width, initial-scale=1">
 
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2/semantic.min.css" type="text/css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/solarized_light.min.css" rel="stylesheet" />
+     
 
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.min.css" type="text/css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/solarized-light.min.css" rel="stylesheet" />
+
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2/semantic.min.js"></script>
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/languages/java.min.js"></script>
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.min.js"></script>
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/languages/java.min.js"></script>
      <script>hljs.initHighlightingOnLoad();</script>
 
-      <style>
-        
+     
+
+     <style>
+       
 
 body 
 {
@@ -36,23 +40,13 @@ figcaption
   align-items: center;
 }
 
-.credits
-{
-  min-height:20px;
-}
 
 
-    </style>
+     </style>
 
-  </head>
+   </head>
 
   <body>
-
-    
-
-
-
-  <div class="ui container">
     
 
 <style>
@@ -74,17 +68,36 @@ h1
 {
   font-style:italic;
   font-size:130%;
-  border-bottom: thin solid black;
+  border-bottom:thin solid black;
 }
+
 h2
 {
   font-size:110%;
   border-bottom: thin solid black;
 }
+
 h3
 {
   font-size:100%;
   border-bottom: thin solid black;
+}
+
+body
+{
+  overflow-y: scroll;
+}
+
+.pushable > .pusher
+{
+  padding-bottom: 1.5rem;
+}
+
+.ui.segment.pushable
+{
+  margin: 0;
+  padding: 1rem 0;
+  overflow: visible;
 }
 
 
@@ -93,38 +106,94 @@ h3
 
 <div class="ui fixed top pointing inverted menu labmenu">
   <header class="header item">
+    <i id="toc" class="sitemap icon"></i>
     <a href="../index.html">
-      <i class="sitemap icon"></i>
-      Data Stores
+      Data Stores
     </a>
   </header>
   <div class="right tab-menu menu">
     
-      <a class="item" data-tab="Lab-mongo-01">
-        Lab-mongo-01
-      </a>
+    <a class="item" data-tab="Lab-mongo-01">
+      Lab-mongo-01
+    </a>
     
-      <a class="item" data-tab="01">
-        01
-      </a>
+    <a class="item" data-tab="01">
+      01
+    </a>
     
-      <a class="item" data-tab="02">
-        02
-      </a>
+    <a class="item" data-tab="02">
+      02
+    </a>
     
-    </div>
+    <a class="item" href="../../index.html">
+      <i class="home icon"></i>
+    </a>
+  </div>
 </div>
 
-<br><br>
-
-  
-  <div  class="ui tab segment lab" data-tab="Lab-mongo-01">
-    <p>MongoDB is a store for JSON documents, and allows these documents to be queried and manipulated, using JSON itself as the query language.</p>
-
+<div class="ui segment pushable">
+  <div class="ui inverted labeled icon left inline vertical sidebar menu">
+    
+      
+        <a class="item" href="../../topic01/book-1/index.html">
+          Lab-JavaScript-01
+        </a>
+      
+    
+      
+        <a class="item" href="../../topic01/book-2/index.html">
+          Lab-JavaScript-02
+        </a>
+      
+    
+      
+        <a class="item" href="../../topic02/book-1/index.html">
+          Lab-node-01
+        </a>
+      
+    
+      
+        <a class="item" href="../../topic02/book-2/index.html">
+          Lab-node-02
+        </a>
+      
+    
+      
+        <a class="item" href="../../topic02/book-3/index.html">
+          Assignment-1
+        </a>
+      
+    
+      
+        <a class="active item" href="../../topic03/book-1/index.html">
+          Lab-mongo-01
+        </a>
+      
+    
+      
+        <a class="item" href="../../topic03/book-git-lab/index.html">
+          git-lab-01
+        </a>
+      
+    
+      
+        <a class="item" href="../../topic04/book-1/index.html">
+          Lab-PubSub-01
+        </a>
+      
+    
   </div>
- 
-  <div  class="ui tab segment lab" data-tab="01">
-    <h1>MongoLab</h1>
+  <div class="pusher" tabindex="-1">
+    <div class="ui basic segment">
+      <br>
+      
+      <div  class="ui tab segment lab" data-tab="Lab-mongo-01">
+        <p>MongoDB is a store for JSON documents, and allows these documents to be queried and manipulated, using JSON itself as the query language.</p>
+
+      </div>
+     
+      <div  class="ui tab segment lab" data-tab="01">
+        <h1>MongoLab</h1>
 <p><img src="img/mongodb-logo.png" alt=""> 
 MongoDB is a <em>noSQL</em> database, which means that it does not use traditional SQL and tables with rows and columns. Instead, it is a store for JSON documents, and allows these documents to be queried and manipulated, using JSON itself as the query language.</p>
 <p>Running your own MongoDB cluster requires a significant amount of system administration work. You can outsource this to the cloud by using a MongoDB hosting provider.
@@ -226,10 +295,10 @@ rs-ds039311:PRIMARY&gt; db.contacts.find({name:&quot;Joe Bloggs&quot;})
 <pre><code class="lang-javascript">&gt; db.contacts.remove({_id:ObjectId(&quot;4f3a4983199668116a823447&quot;)})</code></pre>
 <p>In the second script, the object is removed using its _id unique identifier. In general, MongoDB operations are most efficient if the query used the _id value to specify the object.</p>
 
-  </div>
- 
-  <div  class="ui tab segment lab" data-tab="02">
-    <h1>MongoDB and Node.js</h1>
+      </div>
+     
+      <div  class="ui tab segment lab" data-tab="02">
+        <h1>MongoDB and Node.js</h1>
 <p>This section requires that you have the web service from  lab 7 completed.
 We now want to increase the functionality of the API and add integration to Mongo DB. </p>
 <h3>Set up</h3>
@@ -359,58 +428,81 @@ Again, check this works using the Rest client.</li>
 <h3>More Info</h3>
 <p>Got to the <a href="https://docs.mongodb.com/getting-started/node/client/">MongoDB getting started documentation</a> for more info.</p>
 
+      </div>
+     
+    </div>
   </div>
- 
-
-
-<script>
-$('.ui.menu .item')
-  .tab({
-    history: true,
-    historyType: 'hash'
-  })
-;
-</script>
-
-   </div>
-
-   
-  <br><br>
-  <div class="ui bottom fixed borderless menu">
-    <div class="ui small item">
-    <p id="footertext">
-    Prepared by  Frank Walsh (fxwalsh@wit.ie). Except where otherwise noted, this content is licensed under a
-     <a  href="http://creativecommons.org/licenses/by-nc/4.0/" title="External link to http://creativecommons.org/licenses/by-nc/4.0/"
-       target="_blank">Creative Commons Attribution-NonCommercial 4.0 License
-     </a>
-     </p>
+</div>
+  <div class="ui bottom fixed borderless right menu">
+    <div class="ui right tiny menu">
+      <div class="ui mini message segment">
+        Frank Walsh (fxwalsh@wit.ie).
+        <a  href="http://creativecommons.org/licenses/by-nc/4.0/" title="External link to http://creativecommons.org/licenses/by-nc/4.0/"
+            target="_blank">Creative Commons License
+        </a>
+      </div>
     </div>
   </div>
 
+<script>
+  $(document).on('keydown', function (e) {
+  e = e || window.event;
+  var nextTab;
+  switch (e.which || e.keyCode) {
+    case 37: // left
+      nextTab = $('.tab-menu a[data-tab].active').prev('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').last();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+
+    case 39: // right
+      nextTab = $('.tab-menu a[data-tab].active').next('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').first();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+  }
+});
+
+</script>
+
+    <footer>
+
+    </footer>
     <script>
-      
-$(document).ready(function()
-{
-  $("img").addClass ("ui image");
+      $(document).ready(function () {
+  $('img').addClass('ui image');
   $('.ui.embed').embed();
 
-  var images = $(".lab img");
-  jQuery.each(images, function(i)  {
-    if((images[i].alt).length > 0)
-    {
-      var div_img = $(document.createElement("div")).addClass("ui segment");
-      $(images[i]).wrap(div_img);
-      var div_label = $(document.createElement("div")).addClass("ui ribbon teal top attached label");
-      div_label.append(images[i].alt);
-      $(div_label).insertBefore(images[i]);
+  const $images = $('.lab img');
+  jQuery.each($images, function (i) {
+    if (($images[i].alt).length > 0) {
+      const divImg = $(document.createElement('div')).addClass('ui basic segment');
+      $($images[i]).wrap(divImg);
+      const divLabel = $(document.createElement('div')).addClass('ui blue ribbon label');
+      divLabel.append($images[i].alt);
+      $(divLabel).insertBefore($images[i]);
     }
   });
 
+  $('.ui.embed').embed();
 
-})
+  $('.ui.menu .item')
+      .tab({
+        history: true,
+        historyType: 'hash',
+      });
 
+  $('.popup').popup();
+
+  $('.ui.sidebar')
+      .sidebar({ context: $('.pushable') })
+      .sidebar('setting', 'transition', 'slide out')
+      .sidebar('attach events', '#toc');
+});
 
     </script>
-
   </body>
+
  </html>
