@@ -215,9 +215,9 @@ var pubnub = new PubNub({
 
 
 module.exports = {
-  publish: function(message){
+  publish: function(channel, message){
     pubnub.publish({
-             channel: &#39;create_contact_event&#39;,
+             channel: channel,
              message: JSON.stringify(message)},
              function(status, response) {
                if (status.error) {
