@@ -125,6 +125,10 @@ body
       02
     </a>
     
+    <a class="item" data-tab="03">
+      03
+    </a>
+    
     <a class="item" href="../../index.html">
       <i class="home icon"></i>
     </a>
@@ -243,7 +247,7 @@ describe(&quot;Contacts API unit tests&quot;,function(){
     server
     .get(&quot;/api/contacts&quot;)
     .expect(&quot;Content-type&quot;,/json/)
-    .expect(200) // THis is HTTP response
+    .expect(200) // This is HTTP response
     .end(function(err,res){
       // HTTP status should be 200
       res.status.should.equal(200);
@@ -301,6 +305,10 @@ GET /api/badroute    hint: test for 404</p>
 </blockquote>
 <p>Use the notes and online resources for support.</p>
 
+      </div>
+     
+      <div  class="ui tab segment lab" data-tab="03">
+        
       </div>
      
     </div>
