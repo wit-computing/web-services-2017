@@ -108,17 +108,25 @@ body
   <header class="header item">
     <i id="toc" class="sitemap icon"></i>
     <a href="../index.html">
-      Mongoose
+      # Unit Testing APIs
     </a>
   </header>
   <div class="right tab-menu menu">
     
-    <a class="item" data-tab="Lab-Mongoose-01">
-      Lab-Mongoose-01
+    <a class="item" data-tab="api-testing">
+      api-testing
     </a>
     
     <a class="item" data-tab="01">
       01
+    </a>
+    
+    <a class="item" data-tab="02">
+      02
+    </a>
+    
+    <a class="item" data-tab="03">
+      03
     </a>
     
     <a class="item" href="../../index.html">
@@ -179,7 +187,7 @@ body
       
     
       
-        <a class="active item" href="../../topic05/book-1/index.html">
+        <a class="item" href="../../topic05/book-1/index.html">
           Lab-Mongoose-01
         </a>
       
@@ -191,7 +199,7 @@ body
       
     
       
-        <a class="item" href="../../topic07/book-2/index.html">
+        <a class="active item" href="../../topic07/book-2/index.html">
           api-testing
         </a>
       
@@ -201,17 +209,112 @@ body
     <div class="ui basic segment">
       <br>
       
-      <div  class="ui tab segment lab" data-tab="Lab-Mongoose-01">
-        <p>In this lab you will update your previous lab to use the Mongoose package. You will also externalise some of the environment and personal parameters from your app.</p>
+      <div  class="ui tab segment lab" data-tab="api-testing">
+        <h1>API Testing</h1>
+<p>This lab shows you how to test a Node API using Mocha, Should, and SuperTest.</p>
 
       </div>
      
       <div  class="ui tab segment lab" data-tab="01">
-        <h1>Go Here...</h1>
-<p><a href="https://www.gitbook.com/book/fxwalsh/lab-mongoose-1/">Git Book Mongoose Lab</a></p>
-<h1>Mongoose Samples</h1>
-<p>Download sample code from class from <img src="./samples/mongoose_samples.zip" alt="here">.</p>
+        <h1>Set up</h1>
+<ul>
+<li><p>You need a working version of the Contacts api for this lab. The solution to the last lab you completed will will do. Otherwise, you can get the solution from Github.</p>
+</li>
+<li><p>Create a new folder for this lab, for example <em>lab-node-testing</em> and copy the contents of the last lab into this folder.</p>
+</li>
+</ul>
+<h3>Install dependencies</h3>
+<ul>
+<li>You need Mocha, Should and SuperTest. Install as development dependencies into your new lab folder as follows:</li>
+</ul>
+<pre><code>npm install --save-dev mocha
 
+npm install --save-dev should
+
+npm install --save-dev supertest</code></pre>
+<h3>Create First Test</h3>
+<ul>
+<li>Create a <code>test</code> folder in <code>/api/contacts</code> and create a new file called <code>/api/contacts/test/testContacts.js</code></li>
+<li>Insert the following code:</li>
+</ul>
+<pre><code class="lang-javascript">var supertest = require(&quot;supertest&quot;);
+var should = require(&quot;should&quot;);
+
+// This agent refers to PORT where program is runninng.
+var server = supertest.agent(&quot;http://localhost:8080&quot;);
+
+// UNIT test begin
+
+describe(&quot;Contacts API unit tests&quot;,function(){
+  // #1 should return contacts representation in json
+  it(&quot;should return collection of JSON documents&quot;,function(done){
+
+    // calling home page api
+    server
+    .get(&quot;/api/contacts&quot;)
+    .expect(&quot;Content-type&quot;,/json/)
+    .expect(200) // This is HTTP response
+    .end(function(err,res){
+      // HTTP status should be 200
+      res.status.should.equal(200);
+      done();
+    });
+  });
+
+});</code></pre>
+<h2>update package.json</h2>
+<ul>
+<li>Add the following script entry to the app&#39;s package.json file.</li>
+</ul>
+<pre><code class="lang-json">scripts:{  
+  &quot;test&quot; : &quot;mocha \&quot;api/**/test/*.js\&quot;&quot;,
+  ...
+}</code></pre>
+<p>The above script entry will run mocha against the files matching the pattern provided (i.e. all the test folders in the api routing folders)</p>
+<ul>
+<li>Now test by starting your service and, in the root of the lab folder, run the following</li>
+</ul>
+<pre><code>npm run test</code></pre>
+<p>You should see something similar to the following:</p>
+<p><img src="./img/main.png" alt="First Mocha Test"></p>
+
+      </div>
+     
+      <div  class="ui tab segment lab" data-tab="02">
+        <h1>Testing the Contacts API</h1>
+<p>Now lets try to test the add contact function of the API.</p>
+<ul>
+<li>Add another unit test to the last test. This time we&#39;ll use SuperTest to post a new contact and test for the correct status:</li>
+</ul>
+<pre><code class="lang-javascript">
+// #2 add a contact
+it(&quot;should add a new contact&quot;,function(done){
+
+  // post to /api/contacts
+  server.post(&#39;/api/contacts&#39;)
+  .send({name:&quot;Contact 99&quot;,address:&quot;123 Strand St&quot;})
+  .expect(&quot;Content-type&quot;,/json/)
+  .expect(201)
+  .end(function(err,res){
+    res.status.should.equal(201);
+    done();
+  });
+});</code></pre>
+<p>Now run the test again. You should see something similar to the following:</p>
+<p><img src="./img/add_contact.png" alt="Add a contact test"></p>
+<h2>Update and Delete</h2>
+<p>Now try to implement the tests for the following routes</p>
+<blockquote>
+<p>PUT /api/contacts/[:id]
+DELETE /api/contacts/[:id]
+GET /api/badroute    hint: test for 404</p>
+</blockquote>
+<p>Use the notes and online resources for support.</p>
+
+      </div>
+     
+      <div  class="ui tab segment lab" data-tab="03">
+        
       </div>
      
     </div>
